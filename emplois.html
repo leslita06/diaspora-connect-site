@@ -53,9 +53,19 @@ img{max-width:100%;display:block}
 .btn:active{transform:scale(.97)}
 .btn.primary{background:var(--grad-diaspora);border-color:transparent;color:#fff;box-shadow:var(--shadow-brand)}
 .btn.primary:hover{color:#fff;filter:brightness(.93)}
-.btn.dark{background:var(--dc-ink);border-color:var(--dc-ink);color:#fff}
-.btn.dark:hover{color:#fff}
 .btn.small{padding:9px 16px;font-size:14px}
+.btn.violet{background:var(--dc-purple);border-color:transparent;color:#fff}
+.btn.violet:hover{color:#fff;filter:brightness(1.08)}
+/* bouton « Ajouter à ma sélection » : blanc, puis dégradé quand l'offre est choisie */
+.choix{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:var(--radius-pill);border:1.5px solid var(--dc-grey-200);background:#fff;font-weight:700;font-size:14px;white-space:nowrap;transition:.15s}
+.choix .case{width:20px;height:20px;border-radius:999px;border:2px solid var(--dc-grey-300);display:grid;place-items:center;color:#fff;flex:none;transition:.15s}
+.choix .case svg{opacity:0}
+.choix:hover{border-color:var(--dc-red)}
+.choix.choisi{border-color:transparent;background:var(--grad-diaspora);color:#fff;box-shadow:var(--shadow-brand)}
+.choix.choisi .case{border-color:#fff;background:#fff;color:var(--dc-red)}
+.choix.choisi .case svg{opacity:1}
+/* placeholder d'une rubrique pas encore renseignée par l'entreprise */
+.a-venir{border:1.5px dashed var(--dc-grey-300);border-radius:var(--radius-md);padding:16px 18px;color:var(--dc-grey-500);font-size:14px;display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.6)}
 .btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
 section{padding-block:88px}
 @media (max-width:760px){section{padding-block:56px}}
@@ -111,7 +121,8 @@ footer img{height:36px;width:auto;margin-bottom:18px}
 .tiroir .pied{padding:18px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--dc-grey-200);display:flex;flex-direction:column;gap:10px}
 .tiroir .pied .btn{width:100%}
 .tiroir .jauge{font-size:13px;color:var(--dc-grey-700);text-align:center}
-.logo{border-radius:14px;background:#fff;border:1px solid var(--dc-grey-200);display:grid;place-items:center;overflow:hidden;flex:none}
+.logo{border-radius:14px;background:#fff;border:1px solid var(--dc-grey-200);display:grid;place-items:center;overflow:hidden;flex:none;transition:.15s}
+.logo.anneau,.choisie .logo{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--grad-diaspora) border-box}
 .logo img{width:82%;height:82%;object-fit:contain}
 .logo.vide{font-family:var(--font-display);font-weight:800;color:var(--dc-purple);background:var(--dc-purple-50);font-size:18px}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--dc-ink);color:#fff;padding:12px 18px;border-radius:var(--radius-pill);font-weight:700;font-size:14px;opacity:0;transition:.25s;z-index:70;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
@@ -169,7 +180,7 @@ footer img{height:36px;width:auto;margin-bottom:18px}
     <div class="sources"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg> Sources : <span>Educarriere</span><span>LinkedIn</span><span>Novojob</span></div>
   </div>
   <div class="filtres" role="search">
-    <div class="champ"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /> </svg><input id="q" type="search" placeholder="Rechercher un poste, une entreprise, un secteur" aria-label="Rechercher"></div>
+    <div class="champ"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /> </svg><input id="q" type="search" placeholder="Rechercher un poste ou une entreprise" aria-label="Rechercher"></div>
     <select id="f-secteur" aria-label="Secteur"><option value="">Tous les secteurs</option></select>
     <select id="f-niveau" aria-label="Niveau"><option value="">Tous les niveaux</option></select>
     <button class="raz" id="raz" type="button" hidden>Effacer</button>
@@ -221,6 +232,7 @@ footer img{height:36px;width:auto;margin-bottom:18px}
       const on = sel.includes(b.dataset.choix);
       b.classList.toggle('choisi', on); b.setAttribute('aria-pressed', on);
       const l = b.querySelector('[data-libelle]'); if (l) l.textContent = on ? 'Dans ma sélection' : 'Ajouter à ma sélection';
+      b.classList.toggle('choix', b.classList.contains('choix') || b.hasAttribute('data-choix-pill'));
       const c = b.closest('[data-carte]'); if (c) c.classList.toggle('choisie', on);
     });
     document.dispatchEvent(new CustomEvent('dc:selection', {detail: sel.slice()}));

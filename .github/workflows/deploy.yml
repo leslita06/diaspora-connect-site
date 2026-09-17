@@ -60,14 +60,31 @@ jobs:
 
       - name: Vérifie que le serveur porte bien ces fichiers
         run: |
-          local_sum=$(find . -type f -not -path './.git/*' -not -path './.github/*' \
-            | sed 's|^\./||' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
-          distant=$(ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
+          # LC_ALL=C impose un tri par octets. Sans lui le classement dépend de
+          # la locale : le coureur GitHub et le serveur Debian ordonnaient
+          # différemment .nojekyll et les noms à tirets, et la comparaison
+          # échouait alors que les fichiers étaient identiques.
+          LISTE="find . -type f -not -path './.git/*' -not -path './.github/*' -not -path './.well-known/*' | sed 's|^\./||' | LC_ALL=C sort | tr '\n' '\0' | xargs -0 sha256sum"
+
+          eval "$LISTE" > "$RUNNER_TEMP/local.txt"
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
             "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
-            "cd ${{ secrets.VPS_PATH }} && find . -type f -not -path './.well-known/*' \
-             | sed 's|^\./||' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1")
-          if [ "$local_sum" != "$distant" ]; then
-            echo "::error::L'arborescence en ligne diffère de celle du dépôt."
-            exit 1
+            "cd '${{ secrets.VPS_PATH }}' && $LISTE" > "$RUNNER_TEMP/distant.txt"
+
+          if diff -q "$RUNNER_TEMP/local.txt" "$RUNNER_TEMP/distant.txt" > /dev/null; then
+            echo "Les $(wc -l < "$RUNNER_TEMP/local.txt") fichiers en ligne sont identiques à ceux du dépôt."
+            exit 0
           fi
-          echo "Empreinte de l'arborescence identique : le serveur porte bien ces fichiers."
+
+          # Un écart réel doit dire lesquels : sans cela, l'échec n'apprend rien.
+          echo "::error::L'arborescence en ligne diffère de celle du dépôt."
+          cut -d' ' -f3- "$RUNNER_TEMP/local.txt"   | LC_ALL=C sort > "$RUNNER_TEMP/n_local.txt"
+          cut -d' ' -f3- "$RUNNER_TEMP/distant.txt" | LC_ALL=C sort > "$RUNNER_TEMP/n_distant.txt"
+          echo "--- présents seulement dans le dépôt ---"
+          comm -23 "$RUNNER_TEMP/n_local.txt" "$RUNNER_TEMP/n_distant.txt" | head -20
+          echo "--- présents seulement sur le serveur ---"
+          comm -13 "$RUNNER_TEMP/n_local.txt" "$RUNNER_TEMP/n_distant.txt" | head -20
+          echo "--- contenu différent ---"
+          diff "$RUNNER_TEMP/local.txt" "$RUNNER_TEMP/distant.txt" \
+            | grep '^[<>]' | cut -d' ' -f4- | LC_ALL=C sort -u | head -20
+          exit 1

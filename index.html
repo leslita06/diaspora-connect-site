@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diaspora Connect</title>
+<meta name="description" content="Diaspora Connect mobilise les talents de la diaspora formés en France pour des missions professionnelles en Côte d&#x27;Ivoire.">
+<link rel="icon" type="image/png" href="assets/marque/mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<style>
+:root{
+  --dc-red:#E10106; --dc-cream:#F6EFEA; --dc-orange:#F16900; --dc-yellow:#FDCD00; --dc-purple:#6E2C90; --dc-blue:#0198E9;
+  --dc-mint:#E2ECE9; --dc-lavender:#DFE7FD; --dc-red-50:#FDECEC; --dc-red-100:#FBD2D3; --dc-red-700:#A80105;
+  --dc-purple-50:#F2EBF6; --dc-purple-100:#E0CFEA; --dc-ink:#1A1618; --dc-grey-900:#2B2529; --dc-grey-700:#595456;
+  --dc-grey-500:#857F82; --dc-grey-300:#C7C1C3; --dc-grey-200:#E3DFE0; --dc-grey-100:#EFEBEC; --dc-white:#FFFFFF;
+  --grad-warm:linear-gradient(90deg,#FDCD00 0%,#F16900 50%,#E10106 100%);
+  --grad-diaspora:linear-gradient(92deg,#E10106 0%,#F16900 100%);
+  --grad-connect:linear-gradient(180deg,#6E2C90 0%,#E10106 100%);
+  --font-display:'Bricolage Grotesque','DM Sans',system-ui,sans-serif; --font-sans:'DM Sans',system-ui,sans-serif;
+  --radius-md:14px; --radius-lg:20px; --radius-xl:28px; --radius-2xl:36px; --radius-pill:999px;
+  --shadow-sm:0 1px 2px rgba(26,22,24,.05),0 6px 20px -10px rgba(26,22,24,.14);
+  --shadow-md:0 2px 6px rgba(26,22,24,.06),0 18px 40px -18px rgba(26,22,24,.22);
+  --shadow-brand:0 10px 24px -10px rgba(225,1,6,.45);
+  --ok:#1E9E6A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--dc-cream);color:var(--dc-ink);font-family:var(--font-sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+h2{font-size:clamp(28px,3.6vw,42px)}
+h3{font-family:var(--font-sans);font-weight:700;letter-spacing:0;font-size:20px;line-height:1.25}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--dc-red)}
+button{font:inherit;cursor:pointer;color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--dc-blue);outline-offset:3px}
+.ico{display:inline-block;vertical-align:-.18em;flex:none}
+.btn .ico{vertical-align:middle}
+.pastille{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--dc-red-50);color:var(--dc-red)}
+.pastille.violet{background:var(--dc-purple-50);color:var(--dc-purple)}
+.pastille.bleu{background:var(--dc-lavender);color:var(--dc-blue)}
+.pastille.menthe{background:var(--dc-mint);color:#1E7A57}
+.pastille.jaune{background:#FFF4C2;color:#9A6B00}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:32px}
+@media (max-width:640px){.wrap{padding-inline:18px}}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dc-red)}
+.eyebrow.purple{color:var(--dc-purple)}
+.eyebrow.yellow{color:var(--dc-yellow)}
+.lead{font-size:18px;color:var(--dc-grey-700);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;border:1.5px solid var(--dc-grey-200);background:var(--dc-white);color:var(--dc-ink);transition:transform .12s,filter .2s;white-space:nowrap}
+.btn:hover{filter:brightness(.96);color:var(--dc-ink)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--grad-diaspora);border-color:transparent;color:#fff;box-shadow:var(--shadow-brand)}
+.btn.primary:hover{color:#fff;filter:brightness(.93)}
+.btn.dark{background:var(--dc-ink);border-color:var(--dc-ink);color:#fff}
+.btn.dark:hover{color:#fff}
+.btn.small{padding:9px 16px;font-size:14px}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+section{padding-block:88px}
+@media (max-width:760px){section{padding-block:56px}}
+/* en-tête */
+.haut{position:sticky;top:0;z-index:40;background:rgba(246,239,234,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,22,24,.06)}
+.haut .wrap{display:flex;align-items:center;gap:24px;min-height:78px}
+.haut .logo img{height:50px;width:auto}
+.haut nav{display:flex;align-items:center;gap:20px;margin-left:auto;font-weight:700;font-size:14px}
+.haut nav a.actif{color:var(--dc-red)}
+.haut nav a.cta{color:var(--dc-red)}
+.haut .sel{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 12px;border-radius:var(--radius-pill);border:1.5px solid var(--dc-grey-200);background:var(--dc-white);font-weight:700;font-size:14px}
+.haut .sel .n{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--dc-grey-200);color:var(--dc-grey-700);font-size:12px}
+.haut .sel.plein{border-color:var(--dc-red);background:var(--dc-red-50);color:var(--dc-red-700)}
+.haut .sel.plein .n{background:var(--dc-red);color:#fff}
+.haut .burger{display:none;margin-left:auto;border:1.5px solid var(--dc-grey-200);background:#fff;border-radius:12px;width:44px;height:44px;font-size:22px;line-height:1}
+@media (max-width:900px){
+  .haut nav{display:none;position:absolute;left:0;right:0;top:78px;background:var(--dc-cream);flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 16px;border-bottom:1px solid var(--dc-grey-200)}
+  .haut nav.ouvert{display:flex}
+  .haut nav a{padding:12px 4px;border-bottom:1px solid var(--dc-grey-200)}
+  .haut .wrap{gap:10px;min-height:66px}
+  .haut .logo img{height:38px}
+  .haut .burger{display:block;order:3;margin-left:0}
+  .haut .sel{order:2;margin-left:auto}
+  .haut .sel span.l{display:none}
+  .haut nav{top:66px}
+}
+/* pied */
+footer{background:var(--dc-ink);color:rgba(255,255,255,.74);padding-block:56px 40px;font-size:15px}
+footer .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:32px}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr 1fr}}
+footer h4{font-family:var(--font-sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+footer a{display:block;margin-bottom:10px}
+footer a:hover{color:#fff}
+footer .bas{border-top:1px solid rgba(255,255,255,.14);margin-top:36px;padding-top:22px;font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer img{height:36px;width:auto;margin-bottom:18px}
+/* panier */
+.voile{position:fixed;inset:0;background:rgba(26,22,24,.45);backdrop-filter:blur(2px);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}
+.voile.ouvert{opacity:1;pointer-events:auto}
+.tiroir{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--dc-white);z-index:61;transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:var(--shadow-md)}
+.tiroir.ouvert{transform:none}
+.tiroir header{display:flex;align-items:center;gap:12px;padding:22px 24px;border-bottom:1px solid var(--dc-grey-200)}
+.tiroir header h3{font-family:var(--font-display);font-weight:800;font-size:22px;flex:1}
+.tiroir .fermer{width:38px;height:38px;border-radius:999px;border:1.5px solid var(--dc-grey-200);background:#fff;font-size:20px;line-height:1}
+.tiroir .corps{flex:1;overflow:auto;padding:12px 24px}
+.tiroir .ligne{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--dc-grey-100)}
+.tiroir .ligne .logo{width:46px;height:46px}
+.tiroir .ligne div{flex:1;min-width:0}
+.tiroir .ligne b{display:block;font-size:15px}
+.tiroir .ligne small{color:var(--dc-grey-700)}
+.tiroir .ligne button{border:0;background:none;color:var(--dc-grey-500);font-size:20px;padding:6px}
+.tiroir .ligne button:hover{color:var(--dc-red)}
+.tiroir .vide{padding:40px 8px;text-align:center;color:var(--dc-grey-700)}
+.tiroir .pied{padding:18px 24px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--dc-grey-200);display:flex;flex-direction:column;gap:10px}
+.tiroir .pied .btn{width:100%}
+.tiroir .jauge{font-size:13px;color:var(--dc-grey-700);text-align:center}
+.logo{border-radius:14px;background:#fff;border:1px solid var(--dc-grey-200);display:grid;place-items:center;overflow:hidden;flex:none}
+.logo img{width:82%;height:82%;object-fit:contain}
+.logo.vide{font-family:var(--font-display);font-weight:800;color:var(--dc-purple);background:var(--dc-purple-50);font-size:18px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--dc-ink);color:#fff;padding:12px 18px;border-radius:var(--radius-pill);font-weight:700;font-size:14px;opacity:0;transition:.25s;z-index:70;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.visible{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="haut"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Diaspora Connect, accueil"><img src="assets/marque/logo-tagline-color.png" alt="Diaspora Connect, accélérer l'innovation ivoirienne"></a>
+  <button class="burger" type="button" aria-label="Menu" data-burger>☰</button>
+  <nav data-nav><a href="index.html#programme" class="">À propos</a><a href="offres.html" class="">Offres</a><a href="emplois.html" class="">Emplois en CI</a><a href="https://luma.com/user/Diasporaconnect" class="" target=_blank rel=noopener>Événements</a><a href="ressources.html" class="">Ressources</a><a href="index.html#faq" class="">FAQ</a><a href="candidature.html" class=" cta">Je postule</a></nav>
+  <button class="sel" type="button" data-ouvrir-selection aria-label="Ma sélection d'offres"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg><span class="l">Ma sélection</span><span class="n" data-n-sel>0</span></button>
+</div></header>
+<style>
+.hero{padding-block:72px 40px;text-align:center}
+.hero h1{font-size:clamp(38px,6vw,72px);max-width:16ch;margin:0 auto}
+.hero h1 .w{background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .r{color:var(--dc-red)}
+.hero .lead{margin:22px auto 30px;text-align:center}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.soutien{padding-block:28px 0;display:flex;justify-content:center}
+.soutien img{width:min(920px,100%);height:auto}
+.photo{padding-block:36px 0}
+.photo .cadre{position:relative;border-radius:var(--radius-2xl);overflow:hidden;background:#fff;box-shadow:var(--shadow-md)}
+.photo img{width:100%;height:auto;display:block}
+.video{padding-block:64px}
+.video .cadre{position:relative;aspect-ratio:16/9;border-radius:var(--radius-xl);overflow:hidden;background:var(--dc-ink);box-shadow:var(--shadow-md)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.parcours{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+@media (max-width:760px){.parcours{grid-template-columns:1fr}}
+.parcours article{padding:30px;border-radius:var(--radius-lg);background:var(--dc-white);border:1px solid var(--dc-grey-200);box-shadow:var(--shadow-sm)}
+.parcours article.ouvert{background:#FBF3EE}
+.badge{display:inline-block;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--dc-grey-100);color:var(--dc-grey-700)}
+.badge.on{background:var(--dc-red);color:#fff}
+.parcours h3{margin:16px 0 10px;font-size:24px}
+.parcours p{color:var(--dc-grey-700)}
+.piliers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+@media (max-width:760px){.piliers{grid-template-columns:1fr}}
+.piliers article{background:var(--dc-white);border-radius:var(--radius-lg);padding:28px;border:1px solid var(--dc-grey-200);box-shadow:var(--shadow-sm)}
+.piliers .pastille{margin-bottom:18px}
+.piliers h3{margin-bottom:8px}
+.piliers p{color:var(--dc-grey-700)}
+.criteres{margin-top:40px;background:var(--dc-mint);border-radius:var(--radius-2xl);padding:44px}
+@media (max-width:640px){.criteres{padding:26px}}
+.criteres h2{font-size:clamp(26px,3.2vw,36px);margin:8px 0 26px}
+.criteres ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.criteres li{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.78);border-radius:var(--radius-md);padding:16px 18px}
+.criteres li .pastille{width:36px;height:36px;border-radius:10px;background:#fff;color:var(--dc-red)}
+.sombre{background:var(--dc-ink);color:#fff}
+.sombre h2{color:#fff}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+@media (max-width:900px){.etapes{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.etapes{grid-template-columns:1fr}}
+.etapes article{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:26px}
+.etapes .haut-etape{display:flex;justify-content:space-between;align-items:center}
+.etapes .n{font-family:var(--font-display);font-size:32px;font-weight:800;background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;color:transparent}
+.etapes .pastille{background:rgba(255,255,255,.1);color:var(--dc-yellow)}
+.etapes h3{color:#fff;margin:14px 0 8px;font-size:18px}
+.etapes p{color:rgba(255,255,255,.72);font-size:15px}
+.chiffres{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px;padding-top:40px;border-top:1px solid rgba(255,255,255,.12)}
+@media (max-width:760px){.chiffres{grid-template-columns:1fr 1fr}}
+.chiffres b{display:block;font-family:var(--font-display);font-size:44px;font-weight:800;color:var(--dc-yellow);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.chiffres span{color:rgba(255,255,255,.8);font-size:15px}
+.mur{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:36px}
+.mur a{display:grid;place-items:center;aspect-ratio:3/2;background:var(--dc-white);border:1px solid var(--dc-grey-200);border-radius:var(--radius-md);padding:16px;transition:transform .15s}
+.mur a:hover{transform:translateY(-2px);border-color:var(--dc-grey-300)}
+.mur img{max-height:56px;width:auto;max-width:100%;object-fit:contain}
+.mur .vide{font-family:var(--font-display);font-weight:800;color:var(--dc-purple);text-align:center;font-size:14px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+.duo article{border-radius:var(--radius-lg);padding:34px}
+.duo article.lav{background:var(--dc-lavender)}
+.duo article.blanc{background:var(--dc-white);border:1px solid var(--dc-grey-200)}
+.duo h3{font-family:var(--font-display);font-size:26px;font-weight:800;letter-spacing:-.02em;margin:14px 0 12px}
+.duo ul{list-style:none;padding:0}
+.duo li{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
+.duo li .ico{color:var(--dc-purple);margin-top:3px}
+.duo .lav .pastille{background:#fff}
+.duo p{color:var(--dc-grey-700);margin-bottom:18px}
+.duo ul{margin:0 0 18px;padding-left:18px;color:var(--dc-grey-700)}
+.faq{max-width:900px;margin:32px auto 0}
+.faq details{background:var(--dc-white);border:1px solid var(--dc-grey-200);border-radius:var(--radius-md);margin-bottom:10px;padding:0 22px}
+.faq summary{cursor:pointer;list-style:none;font-weight:700;padding:18px 0;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--dc-red);font-size:22px;font-weight:700;flex:none}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 20px;color:var(--dc-grey-700)}
+</style>
+<main>
+<section class="hero wrap">
+  <h1>Mobiliser la <span class="w">diaspora</span> pour <span class="r">impacter</span> l'économie <span class="r">ivoirienne</span></h1>
+  <p class="lead">Un programme pour connecter les talents africains formés en France avec les opportunités professionnelles au cœur de l'innovation ivoirienne.</p>
+  <div class="ctas"><a class="btn primary" href="offres.html"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg> Voir les 37 offres</a><a class="btn" href="candidature.html">Je postule <svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a></div>
+</section>
+<div class="wrap soutien"><img src="assets/marque/logo-partners.png" alt="Diaspora Connect, avec le soutien du Ministère de l'Europe et des Affaires étrangères, de l'Ambassade de France en Côte d'Ivoire, de Proparco et de la Fondation Mstudio"></div>
+<div class="wrap photo"><div class="cadre"><img src="assets/marque/hero-talents.jpg" alt="Cinq talents de la diaspora, souriants, prêts pour leur mission" width="1800" height="1000"></div></div>
+<section class="wrap video" style="padding-block:56px 0">
+  <p class="eyebrow">En vidéo</p>
+  <h2 style="margin:10px 0 22px;max-width:18ch">Diaspora Connect, raconté par celles et ceux qui le vivent</h2>
+  <div class="cadre"><iframe src="https://www.youtube.com/embed/AmamB9gw0xI" title="Diaspora Connect, vidéo de présentation" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div>
+</section>
+<section class="wrap" id="programme">
+  <p class="eyebrow">Le programme Diaspora Connect</p>
+  <h2 style="margin-top:10px;max-width:22ch">Un programme conçu pour créer des ponts entre la diaspora africaine et les opportunités en Côte d'Ivoire.</h2>
+  <div class="parcours">
+    <article class="ouvert"><span class="badge on">Ouvert</span><h3>Parcours professionnel</h3><p>Plongez dans l'écosystème ivoirien avec une mission professionnelle de 4 mois en startup ou entreprise innovante. Pour certains, c'est le point de départ d'une aventure durable : embauche et installation à Abidjan.</p></article>
+    <article><span class="badge">À venir (2027)</span><h3>Parcours entrepreneur</h3><p>Ce parcours est en cours de refonte et sera disponible prochainement.</p></article>
+  </div>
+</section>
+<section class="wrap" style="padding-top:0">
+  <p class="eyebrow">Trois piliers</p>
+  <h2 style="margin-top:10px">Le programme repose sur trois piliers</h2>
+  <div class="piliers"><article><span class="pastille "><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg></span><h3>Transfert de compétences</h3><p>Au profit des entreprises du continent, grâce aux talents de la diaspora.</p></article><article><span class="pastille violet"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /> </svg></span><h3>Structuration de l&#x27;écosystème</h3><p>Une programmation événementielle qui fait grandir l&#x27;écosystème entrepreneurial ivoirien.</p></article><article><span class="pastille bleu"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" /> <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" /> <path d="M8 6v8" /> </svg></span><h3>Valorisation</h3><p>Production et diffusion de contenus sur l&#x27;innovation en Côte d&#x27;Ivoire.</p></article></div>
+  <div class="criteres"><p class="eyebrow purple">Critères de sélection</p><h2>Ce programme est fait pour vous si…</h2><ul><li><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg></span><span>Vous souhaitez vivre une expérience professionnelle en Afrique.</span></li><li><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /> </svg></span><span>Vous êtes diplômé(e), ou sur le point de l&#x27;être, d&#x27;une université ou école française.</span></li><li><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="8" r="5" /> <path d="M20 21a8 8 0 0 0-16 0" /> </svg></span><span>Vous êtes étudiant(e) en césure ou en fin d&#x27;études, en congé sabbatique ou en recherche d&#x27;emploi.</span></li><li><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /> </svg></span><span>Vous avez une expertise technique (développement, data, IA, cybersécurité, produit, design) ou business (investissement, conseil, marketing digital, croissance).</span></li><li><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /> <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /> <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /> <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /> </svg></span><span>Vous êtes motivé(e) à contribuer au développement de l&#x27;économie numérique en Afrique.</span></li></ul></div>
+</section>
+<section class="sombre"><div class="wrap">
+  <p class="eyebrow yellow">Comment ça marche</p>
+  <h2 style="margin-top:10px">Parcours professionnel, en quatre étapes</h2>
+  <div class="etapes"><article><div class="haut-etape"><div class="n">01</div><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /> </svg></span></div><h3>Candidature en ligne</h3><p>Un formulaire unique pour présenter votre profil et les offres qui vous intéressent.</p></article><article><div class="haut-etape"><div class="n">02</div><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /> </svg></span></div><h3>Entretien avec l&#x27;équipe</h3><p>Un échange pour comprendre votre projet et vos compétences.</p></article><article><div class="haut-etape"><div class="n">03</div><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762" /> </svg></span></div><h3>Matching</h3><p>Nous vous connectons à une startup ou une entreprise innovante ivoirienne.</p></article><article><div class="haut-etape"><div class="n">04</div><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /> </svg></span></div><h3>Mission de 4 à 6 mois</h3><p>Vol, logement et visa pris en charge par le programme.</p></article></div>
+  <div class="chiffres"><div><b>37</b><span>offres ouvertes dans la cohorte 3</span></div><div><b>22</b><span>entreprises d'accueil</span></div><div><b>15</b><span>secteurs représentés</span></div><div><b>100 %</b><span>vol, logement et visa pris en charge</span></div></div>
+</div></section>
+<section class="wrap" id="entreprises">
+  <p class="eyebrow">Nos entreprises d'accueil</p>
+  <h2 style="margin-top:10px;max-width:24ch">Diaspora et entreprises locales : l'alliance qui propulse la Côte d'Ivoire au cœur de l'innovation africaine.</h2>
+  <p class="lead" style="margin-top:14px">Découvrez les startups et entreprises innovantes qui accueillent les talents de la diaspora et stimulent la croissance de l'écosystème ivoirien.</p>
+  <div class="mur"><a href="offres.html?entreprise=adei-technology-hub" title="ADEI Technology Hub"><img src="assets/entreprises/adei-technology-hub-logo.png" alt="ADEI Technology Hub" loading="lazy"></a><a href="offres.html?entreprise=agence-cordia" title="Agence Cordia"><img src="assets/entreprises/agence-cordia-logo.png" alt="Agence Cordia" loading="lazy"></a><a href="offres.html?entreprise=alink-west-africa" title="Alink West Africa"><img src="assets/entreprises/alink-west-africa-logo.png" alt="Alink West Africa" loading="lazy"></a><a href="offres.html?entreprise=artefact" title="Artefact"><img src="assets/entreprises/artefact-logo.png" alt="Artefact" loading="lazy"></a><a href="offres.html?entreprise=blok" title="BLOK"><img src="assets/entreprises/blok-logo.png" alt="BLOK" loading="lazy"></a><a href="offres.html?entreprise=cedaici" title="CEDAICI"><img src="assets/entreprises/cedaici-logo.png" alt="CEDAICI" loading="lazy"></a><a href="offres.html?entreprise=danaya" title="Danaya"><img src="assets/entreprises/danaya-logo.png" alt="Danaya" loading="lazy"></a><a href="offres.html?entreprise=djamo" title="Djamo"><img src="assets/entreprises/djamo-logo.png" alt="Djamo" loading="lazy"></a><a href="offres.html?entreprise=fanga" title="Fanga"><img src="assets/entreprises/fanga-logo.png" alt="Fanga" loading="lazy"></a><a href="offres.html?entreprise=guimini" title="Guimini"><img src="assets/entreprises/guimini-logo.png" alt="Guimini" loading="lazy"></a><a href="offres.html?entreprise=hotel-des-savanes" title="Hôtel des Savanes"><img src="assets/entreprises/hotel-des-savanes-logo.png" alt="Hôtel des Savanes" loading="lazy"></a><a href="offres.html?entreprise=i-p-cote-divoire" title="I&amp;P Côte d’Ivoire"><img src="assets/entreprises/i-p-cote-divoire-logo.png" alt="I&amp;P Côte d’Ivoire" loading="lazy"></a><a href="offres.html?entreprise=iodci-west-africa" title="IODCI West Africa"><img src="assets/entreprises/iodci-west-africa-logo.png" alt="IODCI West Africa" loading="lazy"></a><a href="offres.html?entreprise=ivoire-facility-management" title="Ivoire Facility Management"><img src="assets/entreprises/ivoire-facility-management-logo.png" alt="Ivoire Facility Management" loading="lazy"></a><a href="offres.html?entreprise=jobo" title="Jobo"><img src="assets/entreprises/jobo-logo.png" alt="Jobo" loading="lazy"></a><a href="offres.html?entreprise=nzi-river-lodge" title="N’Zi River Lodge"><img src="assets/entreprises/nzi-river-lodge-logo.png" alt="N’Zi River Lodge" loading="lazy"></a><a href="offres.html?entreprise=pfo-immobilier" title="PFO Immobilier"><img src="assets/entreprises/pfo-immobilier-logo.png" alt="PFO Immobilier" loading="lazy"></a><a href="offres.html?entreprise=sikili" title="Sikili"><img src="assets/entreprises/sikili-logo.png" alt="Sikili" loading="lazy"></a><a href="offres.html?entreprise=stories" title="Stories"><img src="assets/entreprises/stories-logo.png" alt="Stories" loading="lazy"></a><a href="offres.html?entreprise=twenty-first-consulting" title="Twenty First Consulting"><img src="assets/entreprises/twenty-first-consulting-logo.png" alt="Twenty First Consulting" loading="lazy"></a><a href="offres.html?entreprise=wave" title="Wave"><img src="assets/entreprises/wave-logo.png" alt="Wave" loading="lazy"></a><a href="offres.html?entreprise=yelema" title="Yelema"><img src="assets/entreprises/yelema-logo.png" alt="Yelema" loading="lazy"></a></div>
+  <p style="margin-top:28px"><a class="btn primary" href="offres.html">Explorer les 37 offres <svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a></p>
+  <div class="duo">
+    <article class="lav"><span class="pastille bleu"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg></span><h3>Nos événements</h3><p>Un programme d'événements qui connecte la diaspora, les startups locales et les partenaires internationaux.</p><a class="btn" href="https://luma.com/user/Diasporaconnect" target="_blank" rel="noopener">Voir le calendrier <svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /> </svg></a></article>
+    <article class="blanc"><span class="pastille violet"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 5v16" /> <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /> </svg></span><h3>Ressources</h3><p>Des guides, études et contenus exclusifs pour mieux comprendre l'écosystème entrepreneurial ivoirien.</p><ul><li><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg><span>Guides pratiques : installation, financement, innovation</span></li><li><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /> </svg><span>Structures partenaires pour s'installer</span></li><li><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg><span>Vidéos : témoignages et masterclass</span></li></ul><a class="btn" href="ressources.html">Découvrir les ressources <svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg></a></article>
+  </div>
+</section>
+<section class="wrap" id="faq" style="padding-top:0">
+  <div style="text-align:center"><p class="eyebrow">Foire aux questions</p><h2 style="margin-top:10px">Des questions posées fréquemment</h2></div>
+  <div class="faq"><details open><summary>Qui peut candidater au programme ?</summary><p>Les talents de la diaspora africaine diplômés (ou en fin de cursus) d&#x27;une université ou école française, étudiants en césure, jeunes diplômés et professionnels en congé sabbatique ou en recherche d&#x27;emploi.</p></details><details><summary>Puis-je candidater même si je ne suis pas basé en France ?</summary><p>Le programme s&#x27;adresse en priorité aux talents formés en France. Les candidatures depuis d&#x27;autres pays sont étudiées au cas par cas.</p></details><details><summary>Comment se déroule la sélection ?</summary><p>Candidature en ligne, puis un entretien avec l&#x27;équipe, puis le matching avec une startup ou une entreprise d&#x27;accueil.</p></details><details><summary>Quelle est la durée des parcours ?</summary><p>Les missions du parcours professionnel durent de 4 à 6 mois selon l&#x27;entreprise d&#x27;accueil. Les 4 mois correspondent à la durée de l&#x27;accompagnement Diaspora Connect : le contrat, lui, dépend de l&#x27;offre (mission de 4 mois, CDD plus long ou CDI).</p></details><details><summary>Les frais de voyage et de séjour sont-ils couverts ?</summary><p>Le vol, le logement et le visa sont pris en charge par le programme.</p></details><details><summary>Quelles sont les opportunités après le programme ?</summary><p>Pour certains talents, la mission devient le point de départ d&#x27;une aventure durable : embauche et installation à Abidjan.</p></details><details><summary>Quand aura lieu la prochaine cohorte ?</summary><p>La cohorte 3 démarre en janvier 2027 : arrivée des talents à Abidjan le week-end du 16 janvier, semaine d&#x27;immersion à partir du 18 janvier, début des missions le 25 janvier 2027.</p></details></div>
+</section>
+</main>
+<footer><div class="wrap">
+  <div class="cols">
+    <div><img src="assets/marque/logo-white.png" alt="Diaspora Connect"><a href="mailto:infos@diaspora-connect.africa"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /> </svg> infos@diaspora-connect.africa</a><a href="https://www.diaspora-connect.africa"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg> www.diaspora-connect.africa</a></div>
+    <div><h4>Le programme</h4><a href="index.html#programme">À propos</a><a href="offres.html">Offres du programme</a><a href="emplois.html">Emplois en Côte d'Ivoire</a><a href="ressources.html">Ressources</a><a href="candidature.html">Je postule</a></div>
+    <div><h4>Suivez-nous</h4><a href="https://www.instagram.com/diasporaconnectafrica/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/diaspora-connect-cotedivoire/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.youtube.com/channel/UCXJo16U3CbxMCgOoozoSIBw" target="_blank" rel="noopener">YouTube</a><a href="https://luma.com/user/Diasporaconnect" target="_blank" rel="noopener">Événements</a></div>
+    <div><h4>Légal</h4><a href="https://docs.google.com/document/d/100DtRsIXFFZNd1UriZQEzz2O9fymra5J-jXP1WNZioE/edit" target="_blank" rel="noopener">Politique de confidentialité</a></div>
+  </div>
+  <div class="bas"><span>Diaspora Connect, une initiative de la Fondation Mstudio, avec le soutien de l'Ambassade de France en Côte d'Ivoire (Fonds Équipe France+).</span><span>© 2026</span></div>
+</div></footer>
+<div class="voile" data-voile></div>
+<aside class="tiroir" data-tiroir aria-label="Ma sélection d'offres">
+  <header><span class="pastille"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg></span><h3>Ma sélection</h3><button class="fermer" type="button" data-fermer-selection aria-label="Fermer">×</button></header>
+  <div class="corps" data-selection-corps></div>
+  <div class="pied">
+    <div class="jauge" data-jauge></div>
+    <a class="btn primary" href="candidature.html" data-postuler-selection>Postuler avec ma sélection</a>
+    <button class="btn small" type="button" data-vider-selection>Tout retirer</button>
+  </div>
+</aside>
+<div class="toast" data-toast role="status"></div>
+<script>window.DC_OFFRES = {};</script>
+<script>
+(function(){
+  const MAX = 5;
+  const O = window.DC_OFFRES || {};
+  const $ = (s, r=document) => r.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let sel = [];
+  try { sel = JSON.parse(localStorage.getItem('dc-selection') || '[]'); } catch(e) {}
+  if (!Array.isArray(sel)) sel = [];
+  const sauver = () => { try { localStorage.setItem('dc-selection', JSON.stringify(sel)); } catch(e) {} };
+  const initiales = n => String(n||'').split(/\s+/).slice(0,2).map(m => m[0]).join('').toUpperCase();
+  const logoHtml = e => e && e.logo ? `<div class="logo"><img src="${e.logo}" alt="${esc(e.nom)}" loading="lazy"></div>` : `<div class="logo vide">${esc(initiales(e ? e.nom : '?'))}</div>`;
+  let toastT;
+  function toast(msg){ const t = $('[data-toast]'); if(!t) return; t.textContent = msg; t.classList.add('visible'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('visible'), 2600); }
+  function rendreCompteur(){
+    document.querySelectorAll('[data-n-sel]').forEach(n => n.textContent = sel.length);
+    document.querySelectorAll('[data-ouvrir-selection]').forEach(b => b.classList.toggle('plein', sel.length > 0));
+    document.querySelectorAll('[data-choix]').forEach(b => {
+      const on = sel.includes(b.dataset.choix);
+      b.classList.toggle('choisi', on); b.setAttribute('aria-pressed', on);
+      const l = b.querySelector('[data-libelle]'); if (l) l.textContent = on ? 'Dans ma sélection' : 'Ajouter à ma sélection';
+      const c = b.closest('[data-carte]'); if (c) c.classList.toggle('choisie', on);
+    });
+    document.dispatchEvent(new CustomEvent('dc:selection', {detail: sel.slice()}));
+  }
+  function rendreTiroir(){
+    const corps = $('[data-selection-corps]'); if (!corps) return;
+    const offs = sel.map(id => O[id]).filter(Boolean);
+    if (!offs.length) corps.innerHTML = `<div class="vide">Aucune offre pour l'instant.<br>Ajoutez jusqu'à ${MAX} offres depuis la page Offres.</div>`;
+    else corps.innerHTML = offs.map(o => `<div class="ligne">${logoHtml(o.entreprise)}<div><b>${esc(o.poste)}</b><small>${esc(o.entreprise ? o.entreprise.nom : '')}${o.contrat ? ' · ' + esc(o.contrat) : ''}</small></div><button type="button" data-retirer="${esc(o.id)}" aria-label="Retirer">×</button></div>`).join('');
+    const j = $('[data-jauge]'); if (j) j.textContent = `${sel.length} sur ${MAX} offres choisies`;
+    const p = $('[data-postuler-selection]'); if (p) { p.toggleAttribute('disabled', !sel.length); p.textContent = sel.length ? `Postuler avec ${sel.length === 1 ? 'cette offre' : 'ces ' + sel.length + ' offres'}` : 'Choisissez au moins une offre'; }
+    const v = $('[data-vider-selection]'); if (v) v.hidden = !sel.length;
+  }
+  function basculer(id){
+    if (sel.includes(id)) { sel = sel.filter(x => x !== id); toast('Offre retirée de votre sélection'); }
+    else if (sel.length >= MAX) { toast(`Vous avez déjà ${MAX} offres : retirez-en une pour en ajouter une autre`); return; }
+    else { sel.push(id); toast('Offre ajoutée à votre sélection'); }
+    sauver(); rendreCompteur(); rendreTiroir();
+  }
+  function ouvrir(){ $('[data-tiroir]').classList.add('ouvert'); $('[data-voile]').classList.add('ouvert'); rendreTiroir(); }
+  function fermer(){ $('[data-tiroir]').classList.remove('ouvert'); $('[data-voile]').classList.remove('ouvert'); }
+  document.addEventListener('click', ev => {
+    const b = ev.target.closest('[data-choix],[data-retirer],[data-ouvrir-selection],[data-fermer-selection],[data-vider-selection],[data-voile],[data-burger]');
+    if (!b) return;
+    if (b.dataset.choix !== undefined) { ev.preventDefault(); return basculer(b.dataset.choix); }
+    if (b.dataset.retirer !== undefined) return basculer(b.dataset.retirer);
+    if (b.hasAttribute('data-ouvrir-selection')) return ouvrir();
+    if (b.hasAttribute('data-fermer-selection') || b.hasAttribute('data-voile')) return fermer();
+    if (b.hasAttribute('data-vider-selection')) { sel = []; sauver(); rendreCompteur(); rendreTiroir(); return; }
+    if (b.hasAttribute('data-burger')) { $('[data-nav]').classList.toggle('ouvert'); }
+  });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') fermer(); });
+  window.DC = { selection: () => sel.slice(), basculer, ouvrir, fermer, toast, logoHtml, esc, retirer: id => { if (sel.includes(id)) basculer(id); } };
+  // les offres mémorisées qui n'existent plus (pourvues) sont retirées en silence
+  if (Object.keys(O).length) { const avant = sel.length; sel = sel.filter(id => O[id]); if (sel.length !== avant) sauver(); }
+  rendreCompteur(); rendreTiroir();
+})();
+</script>
+
+</body>
+</html>

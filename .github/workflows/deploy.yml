@@ -1,0 +1,73 @@
+name: Déploiement production
+
+# La branche production est une porte ouverte à la main : les mises à jour
+# automatiques du Google Sheet arrivent sur main et n'entrent en ligne que
+# lorsqu'elles y sont fusionnées.
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+concurrency:
+  group: mise-en-ligne-diaspora-connect
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Mise en ligne
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Récupère le dépôt
+        uses: actions/checkout@v4
+
+      - name: Contrôle les pages avant envoi
+        run: |
+          manquantes=0
+          for page in index.html emplois.html offres.html matching.html \
+                      candidature.html ressources.html; do
+            if [ ! -f "$page" ]; then
+              echo "::error::$page absente"; manquantes=1; continue
+            fi
+            # Une page tronquée mettrait en ligne un site à moitié rendu.
+            grep -q '</html>' "$page" || { echo "::error::$page tronquée"; manquantes=1; }
+          done
+          [ "$manquantes" -eq 0 ] || exit 1
+          echo "Les six pages sont présentes et complètes."
+
+      - name: Prépare la clé SSH
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Envoie les fichiers
+        run: |
+          rsync -az --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '.well-known' \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" \
+            ./ \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}"
+
+      # .well-known est exclu du --delete : certbot y dépose les fichiers de
+      # validation lors du renouvellement du certificat, qu'un déploiement
+      # concurrent supprimerait.
+
+      - name: Vérifie que le serveur porte bien ces fichiers
+        run: |
+          local_sum=$(find . -type f -not -path './.git/*' -not -path './.github/*' \
+            | sed 's|^\./||' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1)
+          distant=$(ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+            "cd ${{ secrets.VPS_PATH }} && find . -type f -not -path './.well-known/*' \
+             | sed 's|^\./||' | sort | xargs sha256sum | sha256sum | cut -d' ' -f1")
+          if [ "$local_sum" != "$distant" ]; then
+            echo "::error::L'arborescence en ligne diffère de celle du dépôt."
+            exit 1
+          fi
+          echo "Empreinte de l'arborescence identique : le serveur porte bien ces fichiers."

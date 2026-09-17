@@ -385,9 +385,9 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
     }
     const meilleur = res[0].s;
     const force = s => s >= .72 * meilleur ? ['forte', 'Correspondance forte'] : s >= .45 * meilleur ? ['bonne', 'Bonne correspondance'] : ['partielle', 'Correspondance partielle'];
-    const lus = [...present].sort((a, b) => IDF[b] - IDF[a]).slice(0, 14).map(i => `<span>${esc(IDX.termes[i])}</span>`).join('');
+    const lus = [...present].filter(i => DF[i] <= Math.max(3, N * 0.12)).sort((a, b) => IDF[b] - IDF[a]).slice(0, 14).map(i => `<span>${esc(IDX.termes[i])}</span>`).join('');
     const top = res.slice(0, 5), suite = res.slice(5, 11);
-    zone.innerHTML = `<h2>Vos ${top.length} meilleures offres</h2>
+    zone.innerHTML = `<h2>Vos ${top.length === 5 ? 'cinq' : top.length} meilleures offres</h2>
       <div class="lu">Ce que nous avons lu dans votre profil :${lus}${annees !== null ? `<span class="exp">${annees} ans d'expérience</span>` : ''}</div>
       <div class="top">${top.map((x, k) => { const o = IDX.offres[x.j], [cl, lib] = force(x.s); return `<article class="piste">
         <span class="rang">${k + 1}</span>

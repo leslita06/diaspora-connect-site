@@ -111,8 +111,8 @@ footer img{height:36px;width:auto;margin-bottom:18px}
 .tiroir .fermer{width:38px;height:38px;border-radius:999px;border:1.5px solid var(--dc-grey-200);background:#fff;font-size:20px;line-height:1}
 .tiroir .corps{flex:1;overflow:auto;padding:12px 24px}
 .tiroir .ligne{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--dc-grey-100)}
-.tiroir .ligne .logo{width:46px;height:46px}
-.tiroir .ligne div{flex:1;min-width:0}
+.tiroir .ligne .logo{width:52px;height:52px;flex:none}
+.tiroir .ligne > div:not(.logo){flex:1;min-width:0}
 .tiroir .ligne b{display:block;font-size:15px}
 .tiroir .ligne small{color:var(--dc-grey-700)}
 .tiroir .ligne button{border:0;background:none;color:var(--dc-grey-500);font-size:20px;padding:6px}
@@ -134,7 +134,7 @@ footer img{height:36px;width:auto;margin-bottom:18px}
 <header class="haut"><div class="wrap">
   <a class="logo" href="index.html" aria-label="Diaspora Connect, accueil"><img src="assets/marque/logo-tagline-color.png" alt="Diaspora Connect, accélérer l'innovation ivoirienne"></a>
   <button class="burger" type="button" aria-label="Menu" data-burger>☰</button>
-  <nav data-nav><a href="index.html#programme" class="">À propos</a><a href="offres.html" class="">Offres</a><a href="https://luma.com/user/Diasporaconnect" class="" target=_blank rel=noopener>Événements</a><a href="ressources.html" class="">Ressources</a><a href="index.html#faq" class="">FAQ</a><a href="candidature.html" class="actif cta">Je postule</a></nav>
+  <nav data-nav><a href="index.html#programme" class="">À propos</a><a href="offres.html" class="">Offres</a><a href="ressources.html" class="">Ressources</a><a href="https://luma.com/user/Diasporaconnect" class="" target=_blank rel=noopener>Événements</a><a href="index.html#faq" class="">FAQ</a><a href="candidature.html" class="actif cta">Je postule</a></nav>
   <button class="sel" type="button" data-ouvrir-selection aria-label="Ma sélection d'offres"><svg class="ico " aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /> <rect width="20" height="14" x="2" y="6" rx="2" /> </svg><span class="l">Ma sélection</span><span class="n" data-n-sel>0</span></button>
 </div></header>
 <style>

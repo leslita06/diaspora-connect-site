@@ -355,7 +355,6 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
       <h2>${esc(o.poste)}</h2>
       <div class="chips">${chips(o)}</div>
       <div class="meta">
-        <div><span>${I.clock} Accompagnement</span><b>${esc(o.duree || '4 mois')}</b></div>
         <div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'Information à venir')}</b></div>
         <div><span>${I.calendar} Début</span><b>Janvier 2027</b></div>
         <div><span>${I['user-round']} Profil</span><b>${esc(o.seniorite_courte || 'Information à venir')}</b></div>
@@ -382,7 +381,7 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
     const o = O[id], e = o.entreprise, ch = DC.selection().includes(id);
     ouvrir(`<div class="ent">${DC.logoHtml(e)}<div><button type="button" class="btn small" data-ent="${esc(e.id)}">${esc(e.nom)}</button><small style="margin-top:6px">${esc([e.categorie, e.secteur, e.lieu || 'Abidjan'].filter(Boolean).join(' · '))}</small></div></div>
       <h2>${esc(o.poste)}</h2><div class="chips" style="margin-top:10px">${chips(o)}</div>
-      <div class="fiche"><div><span>${I['file-text']} Contrat</span><b>${esc(o.contrat || 'Information à venir')}</b></div><div><span>${I.clock} Accompagnement</span><b>${esc(o.duree || '4 mois')}</b></div><div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'Information à venir')}</b></div><div><span>${I.calendar} Début</span><b>Janvier 2027</b></div><div><span>${I['map-pin']} Lieu</span><b>${esc(e.lieu || 'Abidjan, Côte d’Ivoire')}</b></div>${o.teletravail ? `<div><span>${I.laptop} Télétravail</span><b>${esc(o.teletravail)}</b></div>` : ''}</div>
+      <div class="fiche"><div><span>${I['file-text']} Contrat</span><b>${esc(o.contrat || 'Information à venir')}</b></div><div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'Information à venir')}</b></div><div><span>${I.calendar} Début</span><b>Janvier 2027</b></div><div><span>${I['map-pin']} Lieu</span><b>${esc(e.lieu || 'Abidjan, Côte d’Ivoire')}</b></div>${o.teletravail ? `<div><span>${I.laptop} Télétravail</span><b>${esc(o.teletravail)}</b></div>` : ''}</div>
       ${bloc("Le poste", o.description, 'target', "Information à venir.")}${bloc("Profil recherché", o.seniorite, 'user-round', "Information à venir.")}${liste("Avantages", o.avantages, 'sparkles', "Information à venir.")}${bloc("L'entreprise", e.apropos, 'building-2', "Information à venir.")}<h3>${I.users}L'équipe</h3>${equipeHtml(E[e.id])}<h3>${I['map-pin']}Les locaux</h3>${locauxHtml(E[e.id])}
       <div class="pied"><button class="choix ${ch ? 'choisi' : ''}" type="button" data-choix="${esc(id)}" aria-pressed="${ch}"><span class="case">${I.check}</span><span data-libelle>${ch ? 'Dans ma sélection' : 'Ajouter à ma sélection'}</span></button><a class="btn primary" href="candidature.html">Postuler ${I['arrow-right'] || I['chevron-right']}</a></div>`, 'offre:' + id);
   }

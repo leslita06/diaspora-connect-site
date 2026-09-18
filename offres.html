@@ -356,9 +356,9 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
       <div class="chips">${chips(o)}</div>
       <div class="meta">
         <div><span>${I.clock} Accompagnement</span><b>${esc(o.duree || '4 mois')}</b></div>
-        <div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'À discuter')}</b></div>
+        <div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'Information à venir')}</b></div>
         <div><span>${I.calendar} Début</span><b>Janvier 2027</b></div>
-        <div><span>${I['user-round']} Profil</span><b>${esc(o.seniorite_courte || 'Selon profil')}</b></div>
+        <div><span>${I['user-round']} Profil</span><b>${esc(o.seniorite_courte || 'Information à venir')}</b></div>
       </div>
       <div class="actions"><button class="btn small" type="button" data-voir="${esc(o.id)}">Voir l'offre ${I['chevron-right']}</button>
         <button class="choix ${ch ? 'choisi' : ''}" type="button" data-choix="${esc(o.id)}" aria-pressed="${ch}"><span class="case">${I.check}</span><span data-libelle>${ch ? 'Dans ma sélection' : 'Ajouter à ma sélection'}</span></button></div>
@@ -373,17 +373,17 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
   function ouvrir(html, vue){ panneau.innerHTML = `<div class="int"><button class="fermer" type="button" data-fermer-panneau aria-label="Fermer">×</button>${html}</div>`; panneau.dataset.vue = vue; panneau.classList.add('ouvert'); voile.classList.add('ouvert'); panneau.scrollTop = 0; }
   function fermer(){ panneau.classList.remove('ouvert'); panneau.dataset.vue = ''; if (!document.querySelector('[data-tiroir].ouvert')) voile.classList.remove('ouvert'); }
   // chaque rubrique est toujours affichée : vide, elle montre un emplacement « à venir » (demande de Leslie, 17/09)
-  const vide = (msg) => `<div class="a-venir">${I.clock} ${esc(msg || "Informations à venir, communiquées par l'entreprise.")}</div>`;
+  const vide = (msg) => `<div class="a-venir">${I.clock} ${esc(msg || "Information à venir.")}</div>`;
   const bloc = (t, txt, ic, msg) => `<h3>${ic ? I[ic] : ''}${t}</h3>` + (txt ? `<p>${esc(txt)}</p>` : vide(msg));
   const liste = (t, items, ic, msg) => `<h3>${ic ? I[ic] : ''}${t}</h3>` + (items && items.length ? `<ul>${items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : vide(msg));
-  const equipeHtml = e => e.equipe && e.equipe.length ? `<div class="equipe">${e.equipe.map(m => `<figure>${m.photo ? `<img src="${m.photo}" alt="${esc(m.nom)}" loading="lazy">` : `<div class="sans">${esc(m.nom.split(/\s+/).slice(0,2).map(x => x[0]).join(''))}</div>`}<figcaption>${esc(m.nom)}</figcaption></figure>`).join('')}</div>` : vide("Photos et présentation de l'équipe à venir.");
-  const locauxHtml = e => e.locaux && e.locaux.length ? `<div class="galerie">${e.locaux.map(u => `<img src="${u}" alt="Les locaux de ${esc(e.nom)}" loading="lazy">`).join('')}</div>` : vide("Photos des locaux à venir.");
+  const equipeHtml = e => e.equipe && e.equipe.length ? `<div class="equipe">${e.equipe.map(m => `<figure>${m.photo ? `<img src="${m.photo}" alt="${esc(m.nom)}" loading="lazy">` : `<div class="sans">${esc(m.nom.split(/\s+/).slice(0,2).map(x => x[0]).join(''))}</div>`}<figcaption>${esc(m.nom)}</figcaption></figure>`).join('')}</div>` : vide("Information à venir.");
+  const locauxHtml = e => e.locaux && e.locaux.length ? `<div class="galerie">${e.locaux.map(u => `<img src="${u}" alt="Les locaux de ${esc(e.nom)}" loading="lazy">`).join('')}</div>` : vide("Information à venir.");
   function ouvrirOffre(id){
     const o = O[id], e = o.entreprise, ch = DC.selection().includes(id);
     ouvrir(`<div class="ent">${DC.logoHtml(e)}<div><button type="button" class="btn small" data-ent="${esc(e.id)}">${esc(e.nom)}</button><small style="margin-top:6px">${esc([e.categorie, e.secteur, e.lieu || 'Abidjan'].filter(Boolean).join(' · '))}</small></div></div>
       <h2>${esc(o.poste)}</h2><div class="chips" style="margin-top:10px">${chips(o)}</div>
-      <div class="fiche"><div><span>${I['file-text']} Contrat</span><b>${esc(o.contrat || 'À préciser')}</b></div><div><span>${I.clock} Accompagnement</span><b>${esc(o.duree || '4 mois')}</b></div><div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'À discuter')}</b></div><div><span>${I.calendar} Début</span><b>Janvier 2027</b></div><div><span>${I['map-pin']} Lieu</span><b>${esc(e.lieu || 'Abidjan, Côte d’Ivoire')}</b></div>${o.teletravail ? `<div><span>${I.laptop} Télétravail</span><b>${esc(o.teletravail)}</b></div>` : ''}</div>
-      ${bloc("Le poste", o.description, 'target', "Description du poste à venir.")}${bloc("Profil recherché", o.seniorite, 'user-round', "Profil recherché à préciser par l'entreprise.")}${liste("Avantages", o.avantages, 'sparkles', "Avantages à préciser par l'entreprise.")}${bloc("L'entreprise", e.apropos, 'building-2', "Présentation de l'entreprise à venir.")}<h3>${I.users}L'équipe</h3>${equipeHtml(E[e.id])}<h3>${I['map-pin']}Les locaux</h3>${locauxHtml(E[e.id])}
+      <div class="fiche"><div><span>${I['file-text']} Contrat</span><b>${esc(o.contrat || 'Information à venir')}</b></div><div><span>${I.clock} Accompagnement</span><b>${esc(o.duree || '4 mois')}</b></div><div><span>${I.banknote} Rémunération</span><b>${esc(o.remu || 'Information à venir')}</b></div><div><span>${I.calendar} Début</span><b>Janvier 2027</b></div><div><span>${I['map-pin']} Lieu</span><b>${esc(e.lieu || 'Abidjan, Côte d’Ivoire')}</b></div>${o.teletravail ? `<div><span>${I.laptop} Télétravail</span><b>${esc(o.teletravail)}</b></div>` : ''}</div>
+      ${bloc("Le poste", o.description, 'target', "Information à venir.")}${bloc("Profil recherché", o.seniorite, 'user-round', "Information à venir.")}${liste("Avantages", o.avantages, 'sparkles', "Information à venir.")}${bloc("L'entreprise", e.apropos, 'building-2', "Information à venir.")}<h3>${I.users}L'équipe</h3>${equipeHtml(E[e.id])}<h3>${I['map-pin']}Les locaux</h3>${locauxHtml(E[e.id])}
       <div class="pied"><button class="choix ${ch ? 'choisi' : ''}" type="button" data-choix="${esc(id)}" aria-pressed="${ch}"><span class="case">${I.check}</span><span data-libelle>${ch ? 'Dans ma sélection' : 'Ajouter à ma sélection'}</span></button><a class="btn primary" href="candidature.html">Postuler ${I['arrow-right'] || I['chevron-right']}</a></div>`, 'offre:' + id);
   }
   function ouvrirEnt(id, onglet){
@@ -393,7 +393,7 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
       <h3>${I.briefcase}Offres (${offs.length})</h3><div class="ent-offres">${offs.map(o => `<button type="button" data-voir="${esc(o.id)}">${esc(o.poste)} ${I['chevron-right']}<small>${esc([o.contrat, o.remu].filter(Boolean).join(' · '))}</small></button>`).join('')}</div>
       <h3>${I.users}L'équipe</h3>${equipeHtml(e)}
       <h3>${I['map-pin']}Les locaux</h3>${locauxHtml(e)}
-      ${bloc('Présentation', e.apropos, 'building-2', "Présentation de l'entreprise à venir.")}${bloc('Mission', e.mission, 'target', "Mission à préciser par l'entreprise.")}${bloc('Valeurs et culture', e.valeurs, 'sparkles', "Valeurs et culture à préciser par l'entreprise.")}`, 'ent:' + id);
+      ${bloc('Présentation', e.apropos, 'building-2', "Information à venir.")}${bloc('Mission', e.mission, 'target', "Information à venir.")}${bloc('Valeurs et culture', e.valeurs, 'sparkles', "Information à venir.")}`, 'ent:' + id);
   }
   document.addEventListener('click', ev => {
     const b = ev.target.closest('button, a');

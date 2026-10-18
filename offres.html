@@ -402,7 +402,7 @@ footer .reseaux a:hover{background:var(--dc-orange);color:#fff;transform:transla
     if (b.dataset.voir) return ouvrirOffre(b.dataset.voir);
     if (b.dataset.ent) return ouvrirEnt(b.dataset.ent);
     if (b.hasAttribute('data-fermer-panneau')) return fermer();
-    if (b.id === 'raz' || b.id === 'raz2') { ['#q', '#f-secteur', '#f-contrat', '#f-ent'].forEach(s => $(s).value = ''); history.replaceState(null, '', 'offres.html'); return rendre(); }
+    if (b.id === 'raz' || b.id === 'raz2') { ['#q', '#f-secteur', '#f-contrat', '#f-ent'].forEach(s => $(s).value = ''); history.replaceState(null, '', location.pathname.split('/').pop() || 'offres.html'); return rendre(); }
   });
   voile.addEventListener('click', fermer);
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') fermer(); });
